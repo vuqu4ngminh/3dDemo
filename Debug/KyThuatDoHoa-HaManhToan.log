@@ -1,0 +1,21 @@
+﻿  imageloader.cpp
+  main.cpp
+  model.cpp
+  texturemodel.cpp
+C:\Users\enter\OneDrive\Desktop\KyThuatDoHoa-GLUT-HaManhToan\texturemodel.cpp(63,18): warning C4018: '<': signed/unsigned mismatch
+C:\Users\enter\OneDrive\Desktop\KyThuatDoHoa-GLUT-HaManhToan\texturemodel.cpp(74,18): warning C4018: '<': signed/unsigned mismatch
+  vidu1.cpp
+  vidu10.cpp
+  vidu11.cpp
+  vidu2.cpp
+  vidu2_1.cpp
+  vidu2_2.cpp
+  vidu3.cpp
+  vidu4.cpp
+  vidu5.cpp
+  vidu6.cpp
+  vidu7.cpp
+  vidu8.cpp
+  vidu9.cpp
+  Generating Code...
+  KyThuatDoHoa-HaManhToan.vcxproj -> C:\Users\enter\OneDrive\Desktop\KyThuatDoHoa-GLUT-HaManhToan\Debug\KyThuatDoHoa-HaManhToan.exe
