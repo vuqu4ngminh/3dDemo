@@ -1,7 +1,3 @@
-//
-// Ky thuat do hoa
-// Ha Manh Toan hmtoan@ioit.ac.vn
-//
 #include "model.h"
 #include <math.h>
 
