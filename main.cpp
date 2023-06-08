@@ -8,13 +8,15 @@ namespace program {
 	Model name;
 	TextureModel horizontalBox, verticalBox, sky, skyTop, table, ground, floor, horizontalWall, verticalWall, horizontalTulanh, verticalTuLanh, board, barN, barT;
 	Vector3 sky_t, skyTop_t, ground_t, horizontalWall_t, horizontalBox_t1, horizontalBox_t2,verticalBox_t1,
-		verticalWall_t, horizontalTuLanh_t,verticalTuLanh_t, table_t, board_t, floor_t;
+			verticalWall_t, horizontalTuLanh_t,verticalTuLanh_t, 
+			table_t, board_t, floor_t, barN_t11, barN_t12, barN_t13,
+			barN_t21, barN_t22, barN_t23, barT_t1, barT_t2;
 	float lx = 0.0f, lz = 0.0f;
-	float x = 0.0f, z = 0.0f;
+	float x = -5.0f, z = 5.0f;
 	float angle = 0;
 	float speed = 0.2f;
-	float heightAngle = 1;
-	float height_view = -1;
+	float heightAngle = 0;
+	float height_view = -0.5;
 
 	void draw(TextureModel* m, Vector3 t) {
 		glPushMatrix();
@@ -153,6 +155,44 @@ namespace program {
 		verticalBox.addQuad(quadIndex(3, 2, 6, 7, texCoord2(0, 1), texCoord2(1, 1), texCoord2(1, 0), texCoord2(0, 0))); // Mặt dưới
 
 	}
+	void makeBarN() {
+		barN.clear();
+		barN.setTextureFromBMP("data/barN.bmp");
+		barN.addVertex(point3(-5, 0, 1)); // 0
+		barN.addVertex(point3(0, 0, 1)); // 1
+		barN.addVertex(point3(0, 0.1, 1)); // 2
+		barN.addVertex(point3(-5, 0.1, 1)); // 3
+		barN.addVertex(point3(-5, 0, 0)); // 4
+		barN.addVertex(point3(0, 0, 0)); // 5
+		barN.addVertex(point3(0, 0.1, 0)); // 6
+		barN.addVertex(point3(-5, 0.1, 0)); // 7
+
+		barN.addQuad(quadIndex(0, 1, 2, 3, texCoord2(0, 1), texCoord2(1, 1), texCoord2(1, 0), texCoord2(0, 0))); // Mặt trước (tuLanhFront)
+		barN.addQuad(quadIndex(4, 5, 6, 7, texCoord2(0, 1), texCoord2(1, 1), texCoord2(1, 0), texCoord2(0, 0))); // Mặt sau
+		barN.addQuad(quadIndex(0, 4, 7, 3, texCoord2(0, 1), texCoord2(1, 1), texCoord2(1, 0), texCoord2(0, 0))); // Mặt trái
+		barN.addQuad(quadIndex(1, 5, 6, 2, texCoord2(0, 1), texCoord2(1, 1), texCoord2(1, 0), texCoord2(0, 0))); // Mặt phải
+		barN.addQuad(quadIndex(0, 1, 5, 4, texCoord2(0, 1), texCoord2(1, 1), texCoord2(1, 0), texCoord2(0, 0))); // Mặt trên
+		barN.addQuad(quadIndex(3, 2, 6, 7, texCoord2(0, 1), texCoord2(1, 1), texCoord2(1, 0), texCoord2(0, 0))); // Mặt dưới
+	}
+	void makeBarT() {
+		barT.clear();
+		barT.setTextureFromBMP("data/barT.bmp");
+		barT.addVertex(point3(-5.2, 0, 0.1)); // 0
+		barT.addVertex(point3(0, 0, 0.1)); // 1
+		barT.addVertex(point3(0, -1.3, 0.1)); // 2
+		barT.addVertex(point3(-5.2, -1.3, 0.1)); // 3
+		barT.addVertex(point3(-5.2, 0, 0)); // 4
+		barT.addVertex(point3(0, 0, 0)); // 5
+		barT.addVertex(point3(0, -1.3, 0)); // 6
+		barT.addVertex(point3(-5.2, -1.3, 0)); // 7
+
+		barT.addQuad(quadIndex(0, 1, 2, 3, texCoord2(0, 1), texCoord2(1, 1), texCoord2(1, 0), texCoord2(0, 0))); // Mặt trước (tuLanhFront)
+		barT.addQuad(quadIndex(4, 5, 6, 7, texCoord2(0, 1), texCoord2(1, 1), texCoord2(1, 0), texCoord2(0, 0))); // Mặt sau
+		barT.addQuad(quadIndex(0, 4, 7, 3, texCoord2(0, 1), texCoord2(1, 1), texCoord2(1, 0), texCoord2(0, 0))); // Mặt trái
+		barT.addQuad(quadIndex(1, 5, 6, 2, texCoord2(0, 1), texCoord2(1, 1), texCoord2(1, 0), texCoord2(0, 0))); // Mặt phải
+		barT.addQuad(quadIndex(0, 1, 5, 4, texCoord2(0, 1), texCoord2(1, 1), texCoord2(1, 0), texCoord2(0, 0))); // Mặt trên
+		barT.addQuad(quadIndex(3, 2, 6, 7, texCoord2(0, 1), texCoord2(1, 1), texCoord2(1, 0), texCoord2(0, 0))); // Mặt dưới
+	}
 	void makeTable() {
 		table.clear();
 		table.setTextureFromBMP("data/table.bmp");
@@ -201,15 +241,23 @@ namespace program {
 
 		glLoadIdentity();
 
-		gluLookAt(x, 0, z,
+		gluLookAt(x, -0.5, z,
 			x + lx, height_view, z + lz,
 			0.0f, 2.0f, 0.0f);
 
 		glEnable(GL_TEXTURE_2D);
 		horizontalBox_t1 = point3(0, 0, -6);
 		horizontalBox_t2 = point3(2, 0, -6);
-		
 		verticalBox_t1 = point3(3, 0, -5);
+		// vị trí kệ hàng
+		barN_t11 = point3(1, -1.4, -3);
+		barN_t12 = point3(1, -1, -3);
+		barN_t13 = point3(1, -0.6, -3);
+		barN_t21 = point3(1, -1.4, -1);
+		barN_t22 = point3(1, -1, -1);
+		barN_t23 = point3(1, -0.6, -1);
+		barT_t1 = point3(1.1, -0.4, -2.55);
+		barT_t2 = point3(1.1, -0.4, -0.55);
 		draw(&sky, sky_t);
 		draw(&skyTop, skyTop_t);
 		for (int x1 = -5; x1 < 5; x1++) {
@@ -232,6 +280,14 @@ namespace program {
 		draw(&board, board_t);
 		draw(&horizontalTulanh, horizontalTuLanh_t);
 		draw(&verticalTuLanh, verticalTuLanh_t);
+		draw(&barN, barN_t11);
+		draw(&barN, barN_t12);
+		draw(&barN, barN_t13);
+		draw(&barN, barN_t21);
+		draw(&barN, barN_t22);
+		draw(&barN, barN_t23);
+		draw(&barT, barT_t1);
+		draw(&barT, barT_t2);
 		glutSwapBuffers();
 		glFlush();
 	}
@@ -245,13 +301,13 @@ namespace program {
 			break;
 		case 'w':
 			if (heightAngle < PI / 2) {
-				heightAngle += 0.1;
+				heightAngle += 0.2;
 				height_view = sin(heightAngle) - 1;
 			}
 			break;
 		case 's':
 			if (heightAngle > (-PI / 2)) {
-				heightAngle -= 0.1;
+				heightAngle -= 0.2;
 				height_view = sin(heightAngle) - 1;
 			}
 			break;
@@ -314,6 +370,8 @@ namespace program {
 		makeHorizontalWall();
 		makeTable();
 		makeBoard();
+		makeBarN();
+		makeBarT();
 	}
 }
 int main(int argc, char** argv) {
